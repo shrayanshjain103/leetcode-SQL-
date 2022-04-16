@@ -1,0 +1,6 @@
+
+SELECT id, 'Root' as type FROM Tree WHERE p_id IS NULL
+UNION
+SELECT id,'Inner' FROM Tree WHERE p_id IS NOT NULL AND id IN (SELECT Distinct p_id FROM Tree)
+UNION
+SELECT id,'Leaf' FROM Tree WHERE id NOT IN (SELECT Distinct p_id FROM Tree WHERE p_id IS NOT NULL) AND p_id IS NOT NULL
